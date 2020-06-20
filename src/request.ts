@@ -6,10 +6,7 @@ import error from 'amn-error';
  * @param {Request} req node js Request object
  * @param {string} container [optional] one of property to hold clients data (body, params, query)
  */
-export const input = (
-    req: Request,
-    container?: 'body' | 'params' | 'query'
-) => {
+const input = (req: Request, container?: 'body' | 'params' | 'query') => {
     if (!container) {
         const { body, params, query } = req;
         return Object.assign(body, params, query);
@@ -32,3 +29,5 @@ export const input = (
         'AMN: internal critical error'
     );
 };
+
+export default { input };

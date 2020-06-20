@@ -1,6 +1,6 @@
 import { pPrettyFunc } from './annotations';
 
-export class Prettification {
+export default class Prettification {
     static map = new Map<string, pPrettyFunc>();
     public static set(name: string, foo: pPrettyFunc) {
         this.map.set(name, foo);

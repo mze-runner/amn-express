@@ -7,10 +7,8 @@ import {
     IReplyEmpty,
 } from './annotations';
 import error from 'amn-error';
-import { Prettification } from './prettify';
-export * as req from './request';
-// export * as req from './response';
-export { Prettification as prettify } from './prettify';
+import Prettification from './prettify';
+import req from './request';
 
 declare interface AmnRequest {
     method: string;
@@ -134,3 +132,5 @@ export const res = {
         response[AMN_RESPONSE_CONST]!.status = opt?.status || undefined;
     },
 };
+
+export default { init, response, res, req, prettify: Prettification };
