@@ -26,7 +26,7 @@ AMN itself has minimum and ultra-light; nevertheless, as being a simple wrapper 
 
 ### Initialization
 
-To build-in amn into your middleware pipeline, you have to call `amn.mw.init` before any other router chained middleware.
+To build-in amn into your middleware pipeline, you have to call `amn.init` before any other router chained middleware.
 
 You can initialize amn in two ways.
 
@@ -60,19 +60,19 @@ Besides, you easily can mix both scenarios.Obviously, the only matter is an orde
 
 ### Response middleware
 
-The main idea is to have a single response point to the client. It means that a middleware which has to build a response no longer need to be at the end of the middlewares call chain.
-AMN achieve it through the interim call of `amn.out.reply` to record reply message and keep it till the time `amn.mw.response` lock the chain.
+The main idea is to have a single response point to the client. It means that a middleware which has to build a response no longer need to be at the end of the middleware call chain.
+AMN achieve it through the interim call of `amn.res.reply` to record reply message and keep it till the time `amn.res.response` lock the chain.
 
 ```javascript
 myServiceMiddleware = (req, res, next) => {
     // so something useful
     const messageToClient = { ... , ... , ... };
 
-    amn.res.reply(res, { name : 'myPrettificationFunc', data : messageToClient} ); // amn.out.reply store data and alias for prettification
+    amn.res.reply(res, { name : 'myPrettificationFunc', data : messageToClient} ); // amn.res.reply store data and alias for prettification
     next(); // this is mandatory to call next once middleware done it's job
 }
 
-// In case you do not need to send a body to the client, you can simply call amn.out.reply wity empty - true
+// In case you do not need to send an empty body to the client, you can simply call amn.res.empty
 amn.res.empty(res); // return to client empty body and status 201
 ```
 
@@ -117,7 +117,7 @@ Once your register all your custom post-processing functions, the functions beco
 amn.res.reply(res, { name: 'myPrettificationFunc', data: yourRowData }); // amn.res.reply store data and alias for prettification
 ```
 
-`amn.response` middleware will check whether response data and pretification function available to run your code behind the scene before sending anything to a clint.
+`amn.response` middleware will check whether response data and pretiffication function available to run your code behind the scene before sending anything to a clint.
 
 ### Request helpers
 
@@ -126,7 +126,7 @@ The goal of the request handler is to provide a more convenient way to work with
 ```javascript
 /**
  * @param {Object} req request object from express connect middleware
- * @param {String} source [optional] may be 'body', 'params', 'query', if omitted set all thogether.
+ * @param {String} source [optional] may be 'body', 'params', 'query', if omitted set all together.
  */
 amn.req.input(req, source);
 ```
@@ -135,7 +135,7 @@ amn.req.input(req, source);
 // examples
 
 // get client input from 'body', 'params', and 'query' at once
-const body = amn.req.input(req);
+const all = amn.req.input(req);
 
 // get client input 'body' req.body
 const body = amn.req.input(req, 'body');
