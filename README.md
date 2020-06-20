@@ -32,6 +32,8 @@ You can initialize amn in two ways.
 
 ```javascript
 // example 1
+const amn = require('amn-express');
+
 app.use(amn.init); // init amn itself
 app.use(yourControllers); // your controller
 app.use(amn.response); // amn response middleware
@@ -39,6 +41,8 @@ app.use(amn.response); // amn response middleware
 
 ```javascript
 // example 2
+const amn = require('amn-express');
+
 // you server.js routers call may looks like this.
 app.user(
     '/api',
@@ -61,7 +65,7 @@ AMN achieve it through the interim call of `amn.out.reply` to record reply messa
 
 ```javascript
 myServiceMiddleware = (req, res, next) => {
-    // so somthing usefull
+    // so something useful
     const messageToClient = { ... , ... , ... };
 
     amn.res.reply(res, { name : 'myPrettificationFunc', data : messageToClient} ); // amn.out.reply store data and alias for prettification
@@ -90,7 +94,7 @@ router.put(
 As long you are working with your data within server-side service layer, your data most likely has values you are not keen to share with a client.
 It means before you reply you have to clean data up and prepare it. In case you have pretty much end-points which have to return same object to a client you need to be sure you post-process of your data before send it back.
 
-AMN Preffification is came to simply this flow and centralize the logic you want to have at each time your server have to return same object to the client.
+`AMN Preffification` is came to simply this flow and centralize the logic you want to have at each time your server have to return same object to the client.
 Besides, you be able to deeply customize the response, e.g. remove data from response, add new fields, adjust or fully rewrite values your back-end share with outer world.
 
 In order to utilize this feature, in the first instance you have to register all your own prettification functions.
