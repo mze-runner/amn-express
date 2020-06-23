@@ -18,10 +18,10 @@ declare interface AmnRequest {
 declare interface AmnResponse {
     data: object | undefined;
     content: boolean; // flag whether response should has message-body!
-    // prettification(foo: object): object; // reserve name, function to run prettification.
     prettification: pPrettyFunc; // reserve name, function to run prettification.
     // forward: boolean;
     status: number | undefined;
+    skip: boolean; // by default middleware skip, in case no reply or empty reply are set
 }
 
 declare global {
@@ -62,6 +62,7 @@ export const init = (req: Request, res: Response, next: NextFunction) => {
         prettification: Prettification.forward, // reserve name, function to run prettification.
         // forward: boolean;
         status: undefined,
+        skip: true,
     };
     next();
 };
@@ -73,6 +74,12 @@ export const response = (req: Request, res: Response, next: NextFunction) => {
         const method = req[AMN_REQUEST_CONST]!.method as string;
         const isContent = res[AMN_RESPONSE_CONST]!.content as boolean;
         const customStatus = res[AMN_RESPONSE_CONST]!.status;
+        const skip = res[AMN_RESPONSE_CONST]!.skip;
+
+        // skip = true means NO reply defined by middleware, hence skip response middleware.
+        if (skip) {
+            return next();
+        }
 
         const _retCode = function (method: string, content: boolean) {
             return method === 'POST' ? 201 : !content ? 204 : 200;
@@ -124,12 +131,14 @@ export const res = {
         response[AMN_RESPONSE_CONST]!.data = data;
         response[AMN_RESPONSE_CONST]!.content = true;
         response[AMN_RESPONSE_CONST]!.status = opt?.status || undefined;
+        response[AMN_RESPONSE_CONST]!.skip = false;
     },
 
     empty: (response: Response, opt?: IReplyEmpty) => {
         response[AMN_RESPONSE_CONST]!.data = undefined; // erase if any
         response[AMN_RESPONSE_CONST]!.content = false;
         response[AMN_RESPONSE_CONST]!.status = opt?.status || undefined;
+        response[AMN_RESPONSE_CONST]!.skip = false;
     },
 };
 
