@@ -160,3 +160,24 @@ amn.req.files(req);
 // return request method
 amn.req.method(req);
 ```
+
+### Url Not Found
+
+`Amn Express` out of the box provides middleware plug for url not found. The middleware have to be added after all controllers call.
+
+```javascript
+app.use('/api', myControllers);
+app.use(amn.urlNotFound);
+```
+
+The middleware invoke an error middleware.
+HTTP response with status 404, message
+
+Together with `amn-error` HTTP response with status 404, message
+
+```javascript
+{
+    "code": "NOT_FOUND.PATH",
+    "message": "path is not found"
+}
+```
