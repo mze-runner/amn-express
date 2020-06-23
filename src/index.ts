@@ -67,10 +67,17 @@ export const init = (req: Request, res: Response, next: NextFunction) => {
     next();
 };
 
+export const urlNotFound = (req: Request, res: Response, next: NextFunction) =>
+    next(error.create(404, 'PATH_NOT_FOUND', 'path not found'));
+
+export const notImplemented = (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => next(error.create(404, 'NOT_IMPLEMENTED', 'not implemented'));
+
 export const response = (req: Request, res: Response, next: NextFunction) => {
     try {
-        //
-        // logger.debug('amn:response');
         const method = req[AMN_REQUEST_CONST]!.method as string;
         const isContent = res[AMN_RESPONSE_CONST]!.content as boolean;
         const customStatus = res[AMN_RESPONSE_CONST]!.status;
@@ -142,4 +149,12 @@ export const res = {
     },
 };
 
-export default { init, response, res, req, prettify: Prettification };
+export default {
+    init,
+    response,
+    res,
+    req,
+    prettify: Prettification,
+    urlNotFound,
+    notImplemented,
+};
