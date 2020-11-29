@@ -144,7 +144,7 @@ export const res = {
     empty: (response: Response, opt?: IReplyEmpty) => {
         response[AMN_RESPONSE_CONST]!.data = undefined; // erase if any
         response[AMN_RESPONSE_CONST]!.content = false;
-        response[AMN_RESPONSE_CONST]!.status = opt?.status || undefined;
+        response[AMN_RESPONSE_CONST]!.status = opt?.status || 204; // no body
         response[AMN_RESPONSE_CONST]!.skip = false;
     },
 };
