@@ -16,9 +16,9 @@ In the first instance, `amn` is the wrapper I developed for myself to work with 
 
 `Amn Express` has decoupled packages which are part of `amn` family and can simplify your experience with [express](https://expressjs.com/).
 
--   [Amn Validation](#https://www.npmjs.com/package/amn-express-validate). Client’s input validation via schema employs [@hapi/joi](https://hapi.dev/)
--   [Amn Store](#https://www.npmjs.com/package/amn-store). Introduce a key-value store to help share data through the middleware chain.
--   [Amn Error](#https://www.npmjs.com/package/amn-error). Extends NodeJs `Error` class with extra field to deliver http status and more details over the natur of an error.
+-   [Amn Validation](https://www.npmjs.com/package/amn-express-validate). Client’s input validation via schema employs [@hapi/joi](https://hapi.dev/)
+-   [Amn Store](https://www.npmjs.com/package/amn-store). Introduce a key-value store to help share data through the middleware chain.
+-   [Amn Error](https://www.npmjs.com/package/amn-error). Extends NodeJs `Error` class with extra field to deliver http status and more details over the natur of an error.
 
 ##### Disclaimer
 
@@ -72,8 +72,8 @@ myServiceMiddleware = (req, res, next) => {
     next(); // this is mandatory to call next once middleware done it's job
 }
 
-// In case you do not need to send an empty body to the client, you can simply call amn.res.empty
-amn.res.empty(res); // return to client empty body and status 201
+// In case you have nothing to send back to client, you can simply call amn.res.empty
+amn.res.empty(res); // return to client empty body and status 204 (no content)
 ```
 
 Eventually, your middleware chain may look at the example below.
