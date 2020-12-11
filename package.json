@@ -23,9 +23,6 @@
         "url": "https://github.com/mze-runner/amn-express/issues"
     },
     "homepage": "https://github.com/mze-runner/amn-express#readme",
-    "dependencies": {
-        "amn-error": ">= 0.0.6"
-    },
     "peerDependencies": {
         "amn-error": ">= 0.0.6"
     },
