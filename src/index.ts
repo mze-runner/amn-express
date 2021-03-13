@@ -125,7 +125,7 @@ export const res = {
                 'AMN: prettification function not found'
             );
         }
-        const data = opt.data;
+        const data = opt.payload;
         if (!data) {
             throw error.create(
                 500,

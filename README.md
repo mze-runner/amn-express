@@ -16,13 +16,13 @@ In the first instance, `amn` is the wrapper I developed for myself to work with 
 
 `Amn Express` has decoupled packages which are part of `amn` family and can simplify your experience with [express](https://expressjs.com/).
 
--   [Amn Validation](https://www.npmjs.com/package/amn-express-validate). Client’s input validation via schema employs [@hapi/joi](https://hapi.dev/)
+-   [Amn Validation](https://www.npmjs.com/package/amn-express-validate). Client’s input validation via schema employs [joi](https://joi.dev/)
 -   [Amn Store](https://www.npmjs.com/package/amn-store). Introduce a key-value store to help share data through the middleware chain.
 -   [Amn Error](https://www.npmjs.com/package/amn-error). Extends NodeJs `Error` class with extra field to deliver http status and more details over the natur of an error.
 
 ##### Disclaimer
 
-AMN itself has minimum and ultra-light; nevertheless, as being a simple wrapper on top of express and other dependencies have to be installed installed upfront. Please follow peer dependencies warning at installation.
+AMN itself has minimum and ultra-light; nevertheless, as being a simple wrapper on top of `express` and other dependencies have to be installed installed upfront. Please follow **peer dependencies** warning at installation.
 
 ### Initialization
 
@@ -68,7 +68,7 @@ myServiceMiddleware = (req, res, next) => {
     // so something useful
     const messageToClient = { ... , ... , ... };
 
-    amn.res.reply(res, { name : 'myPrettificationFunc', data : messageToClient} ); // amn.res.reply store data and alias for prettification
+    amn.res.reply(res, { name : 'myPrettificationFunc', payload: messageToClient} ); // amn.res.reply store data and alias for prettification
     next(); // this is mandatory to call next once middleware done it's job
 }
 

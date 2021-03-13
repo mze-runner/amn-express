@@ -5,11 +5,11 @@ export type pPrettyFunc = (subject: object) => any;
 
 export interface IReply {
     name: string;
-    data: object;
-    // empty?: boolean;
+    payload: object;
     status?: number;
 }
 
 export interface IReplyEmpty {
+    // helps to override HTTP response status code
     status?: number;
 }
